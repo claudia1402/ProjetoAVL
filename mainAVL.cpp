@@ -4,10 +4,10 @@
 #include "AVL.h"
 
 // Protótipos das funções presentes ----------------------
-void Insert(AVL* avl);
+void Insert(AVL* avl);		// está quebrado
 void Remove(AVL* avl);
-void Search(AVL* avl);
-void Predecessor(AVL* avl);
+void Search(AVL* avl);		// precisa mudar para buscar pelo nome do alimento
+void Predecessor(AVL* avl); 
 void Successor(AVL* avl);
 void FindMin(AVL* avl);
 void FindMax(AVL* avl);
@@ -24,10 +24,10 @@ void Insert(AVL* avl)
 	std::string	nome;
 	float valorUnit;
 
-	std::cout << "Insert product code, name, quantity and unit value (in this order):\n";
+	std::cout << "Insert food code, name, quantity and unit value (in this order):\n";
 	std::cin >> code >> nome >> qntde >> valorUnit;
-	Product produto(code, nome, qntde, valorUnit);
-	NodeAVL* node = avl->Insert(code, produto);
+	Alimento alimento(code, nome, qntde, valorUnit);
+	NodeAVL* node = avl->Insert(code, alimento);
 
 	if (node)
 		std::cout << "Node inserted!\n";
@@ -124,86 +124,64 @@ void Clear(AVL* avl)
 // dentro delas serão requisitadas as
 // variáveis p/ realizar operações
 
-void op1(AVL* avl);
-void op2(AVL* avl);
-void op3(AVL* avl);
-void op4(AVL* avl);
-void op5(AVL* avl);
+void op1(AVL* avl); // Leitura dos Dados
+void op2(AVL* avl); // Valores Nutricionais
+void op3(AVL* avl); // Qntd de Calorias
+void op4(AVL* avl); // Qntd de Vitaminas
+void op5(AVL* avl); // Qntd de Proteínas
+void op6(AVL* avl); // Outras Informações
+void op7(AVL* avl); // Síntese Nutricional
 
 // Implementação das funções -----------------------------
 
 void op1(AVL* avl)
 {
-	Search(avl);
+	return;
 }
 
-
-//metodo Pimenta
 void op2(AVL* avl)
 {
-	std::cout << avl->SimpleTraverseInOrder() << '\n';
+	return;
 }
 
-//metodo joyce
 void op3(AVL* avl){
-	
-	std::string nome_prod;
-	float preco_total;
-	Product produto;
-
-	std::cout << "Digite o nome do produto que deseja:" << "\t";
-	std::cin >> nome_prod;
-    produto = avl->Search_name(nome_prod)->GetProduto();
-	
-	if (produto.GetNome() == nome_prod) {
-		preco_total = produto.GetQtde() * produto.GetValorUnitario();
-	};
-	std::cout << "Preço total do estoque é R$ " <<preco_total;
-	std::cout << avl->Search_name(nome_prod)->SimpleToString();
+	return;
 }
 
-//metodo claudia
 void op4(AVL* avl)
 {
-	std::cout << avl->StockValue() << '\n';
+	return;
 }
 
-//metodo vitor
 void op5 (AVL* avl) {
-	int quant = 0;
-	std::cout << "Digite o valor de uma quantidade de produtos: \n";
-	std::cin >> quant; 
-	std::cout << avl->percorre(quant);
+	return;
+}
+
+void op6 (AVL* avl) {
+	return;
+}
+
+void op7 (AVL* avl) {
+	return;
 }
 
 int main()
 {
 	AVL* avl = new AVL();
 
-	const int SIZE = 9;
-	int codProdutos[SIZE] = { 5, 4, 3, 1, 2, 6, 7, 9, 8 };
-	int qntProdutos[SIZE] = {35, 100, 200, 1000, 2, 45, 0, 27, 20};
-	float vProdutos[SIZE] = {5.00, 10.00, 3.50, 59.99, 8.90, 2.10, 300.00, 10.18, 3.00};
-	std::string nomes[SIZE] = { "açucar", "guarana", "detergente", "cafe", "energetico", "pao", "manteiga", "bisnaguinha", "sorvete"};
-	Product produto;
-	for (int i = 0; i < SIZE; ++i)
-	{
-		produto.SetCod(codProdutos[i]);
-		produto.SetNome(nomes[i]);
-		produto.SetQtde(qntProdutos[i]);
-		produto.SetValorUnitario(vProdutos[i]);
-		avl->Insert(codProdutos[i], produto);
-	}
 	int option = -1;
 	do
 	{
-		std::cout << "*** AVL Tree ***\n"
-			<< "[1] Lê dados de um produto 							\n"
-			<< "[2] Apresenta todos os produtos						\n"
-			<< "[3] Calcula o valor em Reais do produto em Estoque	\n"
-			<< "[4] Calcula o valor do Estoque						\n"
-			<< "[5] Mostra os produtos inferiores					\n"
-			<< "[6] Exit											\n"
+		// Menu
+		std::cout << "*** AVL Tree ***		\n"
+			<< "[1] Leitura dos Dados 		\n"
+			<< "[2] Valores Nutricionais 	\n"
+			<< "[3] Quantidade de Calorias 	\n"
+			<< "[4] Quantidade de Vitaminas	\n"
+			<< "[5] Quantidade de Proteínas	\n"
+			<< "[6] Outras Informações		\n"
+			<< "[7] Síntese Nutricional		\n"
+			<< "[8] EXIT					\n"
 			<< "Option: ";
 		std::cin >> option;
 		std::cout << '\n';
@@ -215,10 +193,14 @@ int main()
 			case 3: op3(avl); break;
 			case 4: op4(avl); break;
 			case 5: op5(avl); break;
+			case 6: op6(avl); break;
+			case 7: op7(avl); break;
 		}
 
 		std::cout << '\n';
-	} while (option != 6);
+	} while (option != 8);
+
+	std::cout << "-------. Adios .-------";
 
 	delete avl;
 }

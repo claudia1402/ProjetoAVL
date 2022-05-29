@@ -178,9 +178,9 @@ NodeAVL* AVL::FindMaxInternal(NodeAVL* node) const
 		return FindMaxInternal(node->GetRight());
 }
 
-NodeAVL* AVL::Predecessor(int codProduto) const
+NodeAVL* AVL::Predecessor(int codAlimento) const
 {
-	NodeAVL* node = SearchInternal(m_Root, codProduto);
+	NodeAVL* node = SearchInternal(m_Root, codAlimento);
 	return node == nullptr ? nullptr : PredecessorInternal(node);
 }
 
@@ -204,9 +204,9 @@ NodeAVL* AVL::PredecessorInternal(NodeAVL* node) const
 	}
 }
 
-NodeAVL* AVL::Successor(int codProduto) const
+NodeAVL* AVL::Successor(int codAlimento) const
 {
-	NodeAVL* node = SearchInternal(m_Root, codProduto);
+	NodeAVL* node = SearchInternal(m_Root, codAlimento);
 	return node == nullptr ? nullptr : SuccessorInternal(node);
 }
 
@@ -230,65 +230,65 @@ NodeAVL* AVL::SuccessorInternal(NodeAVL* node) const
 	}
 }
 
-NodeAVL* AVL::Search(int codProduto) const
+NodeAVL* AVL::Search(int codAlimento) const
 {
-	return SearchInternal(m_Root, codProduto);
+	return SearchInternal(m_Root, codAlimento);
 }
 
-NodeAVL* AVL::SearchInternal(NodeAVL* node, int &codProduto) const
+NodeAVL* AVL::SearchInternal(NodeAVL* node, int &codAlimento) const
 {
 	if (node == nullptr)
 		return nullptr;
-	else if (node->GetcodProduto() == codProduto)
+	else if (node->GetcodAlimento() == codAlimento)
 		return node;
-	else if (node->GetcodProduto() > codProduto)
-		return SearchInternal(node->GetLeft(), codProduto);
+	else if (node->GetcodAlimento() > codAlimento)
+		return SearchInternal(node->GetLeft(), codAlimento);
 	else
-		return SearchInternal(node->GetRight(), codProduto);
+		return SearchInternal(node->GetRight(), codAlimento);
 }
 
-NodeAVL* AVL::Insert(int codProduto, Product produto)
+NodeAVL* AVL::Insert(int codAlimento, Alimento Alimento)
 {
 	if (IsEmpty())
 	{
-		m_Root = new NodeAVL(codProduto, produto);
+		m_Root = new NodeAVL(codAlimento, Alimento);
 		//m_Root->UpdateBalanceFactor();
 		return m_Root;
 	}
 
-	return InsertInternal(m_Root, nullptr, codProduto, produto);
+	return InsertInternal(m_Root, nullptr, codAlimento, Alimento);
 }
 
-NodeAVL* AVL::InsertInternal(NodeAVL* node, NodeAVL* parent, int codProduto,  Product nome)
+NodeAVL* AVL::InsertInternal(NodeAVL* node, NodeAVL* parent, int codAlimento,  Alimento nome)
 {
 	if (node == nullptr)
-		node = new NodeAVL(codProduto, nome, parent);
-	else if (node->GetcodProduto() == codProduto)
+		node = new NodeAVL(codAlimento, nome, parent);
+	else if (node->GetcodAlimento() == codAlimento)
 		return nullptr; // Error! Cannot insert duplicate.
-	else if (node->GetcodProduto() > codProduto)
-		node->SetLeft(InsertInternal(node->GetLeft(), node, codProduto, nome));
-	else if (node->GetcodProduto() < codProduto)
-		node->SetRight(InsertInternal(node->GetRight(), node, codProduto, nome));
+	else if (node->GetcodAlimento() > codAlimento)
+		node->SetLeft(InsertInternal(node->GetLeft(), node, codAlimento, nome));
+	else if (node->GetcodAlimento() < codAlimento)
+		node->SetRight(InsertInternal(node->GetRight(), node, codAlimento, nome));
 
 	node = Balance(node);
 	return node;
 }
 
-void AVL::Remove(int codProduto)
+void AVL::Remove(int codAlimento)
 {
-	RemoveInternal(m_Root, codProduto);
+	RemoveInternal(m_Root, codAlimento);
 }
 
-NodeAVL* AVL::RemoveInternal(NodeAVL* node, int codProduto)
+NodeAVL* AVL::RemoveInternal(NodeAVL* node, int codAlimento)
 {
 	if (node == nullptr)
 		return nullptr;
-	else if (node->GetcodProduto() == codProduto)
+	else if (node->GetcodAlimento() == codAlimento)
 		node = RemoveNode(node);
-	else if (node->GetcodProduto() > codProduto)
-		node->SetLeft(RemoveInternal(node->GetLeft(), codProduto));
+	else if (node->GetcodAlimento() > codAlimento)
+		node->SetLeft(RemoveInternal(node->GetLeft(), codAlimento));
 	else
-		node->SetRight(RemoveInternal(node->GetRight(), codProduto));
+		node->SetRight(RemoveInternal(node->GetRight(), codAlimento));
 	
 	node = Balance(node);
 	return node;
@@ -330,12 +330,12 @@ NodeAVL* AVL::RemoveNode(NodeAVL* node)
 		// To remove the node, we are reducing the problem to Case 3.
 		// In this case, predecessor is located in the node's left child/subtree and
 		// is the node that has no right child/subtree.
-		NodeAVL* predecessor = Predecessor(node->GetcodProduto());
+		NodeAVL* predecessor = Predecessor(node->GetcodAlimento());
 
 		// Instead of only updating pointers, we are copying the nome from the
 		// predecessor to the node pointer and then we remove the predecessor node.
 		node->CopynomeFrom(predecessor);
-		node->SetLeft(RemoveInternal(node->GetLeft(), predecessor->GetcodProduto()));
+		node->SetLeft(RemoveInternal(node->GetLeft(), predecessor->GetcodAlimento()));
 	}
 
 	return node;
@@ -490,10 +490,10 @@ std::string AVL::percorre (int quant) {
 	//oss << percorre(node->GetLeft(), quant);
 	while (node != nullptr)
 	{
-		if (node->GetProduto().GetQtde() < quant) 
+		if (node->GetAlimento().GetQtde() < quant) 
 			oss << node->SimpleToString();
 		
-		node = Successor(node->GetcodProduto());
+		node = Successor(node->GetcodAlimento());
 	}
 		//oss << percorre(node->GetRight(), quant);
 	return oss.str();
@@ -510,25 +510,25 @@ float AVL::StockValueInternal(const NodeAVL* node, float totalValue) const
 {
 	while (node != nullptr)
 	{
-		totalValue += (node->GetProduto().GetValorUnitario()) * (node->GetProduto().GetQtde());
+		totalValue += (node->GetAlimento().GetValorUnitario()) * (node->GetAlimento().GetQtde());
 
-		node = Successor(node->GetcodProduto());
+		node = Successor(node->GetcodAlimento());
 	}
 	return totalValue;
 }
 
-NodeAVL* AVL::Search_name(std::string n_produto) const
+NodeAVL* AVL::Search_name(std::string n_Alimento) const
 {
-	return SearchInternal_name(FindMin(), n_produto);
+	return SearchInternal_name(FindMin(), n_Alimento);
 }
 
-NodeAVL* AVL::SearchInternal_name(NodeAVL* node, std::string n_produto) const
+NodeAVL* AVL::SearchInternal_name(NodeAVL* node, std::string n_Alimento) const
 {
-	while (Successor(node->GetcodProduto()) != nullptr)
+	while (Successor(node->GetcodAlimento()) != nullptr)
 	{
-		if (node->GetProduto().GetNome() == n_produto)
+		if (node->GetAlimento().GetNome() == n_Alimento)
 			return node;
-		node = Successor(node->GetcodProduto());
+		node = Successor(node->GetcodAlimento());
 	}
 	return nullptr;
 }

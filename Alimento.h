@@ -1,13 +1,13 @@
 //Product.h
-#ifndef __PRODUCT_H__
-#define __PRODUCT_H__
+#ifndef __ALIMENTO_H__
+#define __ALIMENTO_H__
 
 #include <string>
 
-class Product {
+class Alimento {
 public:
-	Product();
-	Product(int cod, const std::string &nome, int qtde, float valorUnitario);
+	Alimento();
+	Alimento(int cod, const std::string &nome, int qtde, float valorUnitario);
 	
 
 	int GetCod() const;

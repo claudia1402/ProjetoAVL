@@ -1,0 +1,4 @@
+# ignora todos os .o
+*.o
+# ignora todos os .exe
+*.exe

@@ -3,21 +3,21 @@
 #define __NODE_AVL_H__
 
 #include <string>
-#include "Product.h"
+#include "Alimento.h"
 
 class NodeAVL {
 public:
-  NodeAVL(int codProduto, Product produto, NodeAVL *parent = nullptr,
+  NodeAVL(int codAlimento, Alimento alimento, NodeAVL *parent = nullptr,
           NodeAVL *left = nullptr, NodeAVL *right = nullptr);
   ~NodeAVL();
 
   void CopynomeFrom(const NodeAVL *node);
 
-  int GetcodProduto() const;
-  //void SetcodProduto(int codProduto);
+  int GetcodAlimento() const;
+  //void SetcodAlimento(int codAlimento);
 
-  Product GetProduto() const;
-  void SetProduto(const Product &produto);
+  Alimento GetAlimento() const;
+  void SetAlimento(const Alimento &alimento);
 
   NodeAVL *GetParent() const;
   void SetParent(NodeAVL *parent);
@@ -42,8 +42,8 @@ public:
   std::string SimpleToString() const;
 
 private:
-  int m_codProduto;
-  Product m_produto;
+  int m_codAlimento;
+  Alimento m_alimento;
 
   NodeAVL *m_Parent;
   NodeAVL *m_Left;

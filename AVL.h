@@ -3,7 +3,7 @@
 #define __AVL_H__
 
 #include "NodeAVL.h"
-#include "Product.h"
+#include "Alimento.h"
 
 class AVL
 {
@@ -28,13 +28,13 @@ public:
 	NodeAVL* FindMin() const;
 	NodeAVL* FindMax() const;
 
-	NodeAVL* Predecessor(int codProduto) const;
-	NodeAVL* Successor(int codProduto) const;
+	NodeAVL* Predecessor(int codAlimento) const;
+	NodeAVL* Successor(int codAlimento) const;
 
-	NodeAVL* Search(int codProduto) const;
-	NodeAVL* Search_name(std::string n_produto) const;
-	NodeAVL* Insert(int codProduto, Product produto);
-	void Remove(int codProduto);
+	NodeAVL* Search(int codAlimento) const;
+	NodeAVL* Search_name(std::string n_Alimento) const;
+	NodeAVL* Insert(int codAlimento, Alimento Alimento);
+	void Remove(int codAlimento);
 
 	float StockValue() const;
 	std::string percorre (int quant);
@@ -59,10 +59,10 @@ private:
 	NodeAVL* PredecessorInternal(NodeAVL* node) const;
 	NodeAVL* SuccessorInternal(NodeAVL* node) const;
 
-	NodeAVL* SearchInternal(NodeAVL* node, int& codProduto) const;
-	NodeAVL* SearchInternal_name(NodeAVL* node, std::string n_produto) const;
-	NodeAVL* InsertInternal(NodeAVL* node, NodeAVL* parent, int codProduto, Product produto);
-	NodeAVL* RemoveInternal(NodeAVL* node, int codProduto);
+	NodeAVL* SearchInternal(NodeAVL* node, int& codAlimento) const;
+	NodeAVL* SearchInternal_name(NodeAVL* node, std::string n_Alimento) const;
+	NodeAVL* InsertInternal(NodeAVL* node, NodeAVL* parent, int codAlimento, Alimento Alimento);
+	NodeAVL* RemoveInternal(NodeAVL* node, int codAlimento);
 	NodeAVL* RemoveNode(NodeAVL* node);
 	void UpdateParentChild(NodeAVL* parent, const NodeAVL* child, NodeAVL* newChild);
 

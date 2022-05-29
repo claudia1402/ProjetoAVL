@@ -3,9 +3,9 @@
 #include "Utils.h"
 #include <sstream>
 
-NodeAVL::NodeAVL(int codProduto, Product produto, NodeAVL *parent, NodeAVL *left, NodeAVL *right)
-	: m_codProduto(codProduto)
-	, m_produto(produto)
+NodeAVL::NodeAVL(int codAlimento, Alimento alimento, NodeAVL *parent, NodeAVL *left, NodeAVL *right)
+	: m_codAlimento(codAlimento)
+	, m_alimento(alimento)
 	, m_Parent(parent)
 	, m_Left(left)
 	, m_Right(right)
@@ -22,13 +22,13 @@ NodeAVL::~NodeAVL()
 
 void NodeAVL::CopynomeFrom(const NodeAVL* node)
 {
-	m_codProduto = node->GetcodProduto();
-	m_produto = node->GetProduto();
+	m_codAlimento = node->GetcodAlimento();
+	m_alimento = node->GetAlimento();
 }
 
-int NodeAVL::GetcodProduto() const
+int NodeAVL::GetcodAlimento() const
 {
-	return m_codProduto;
+	return m_codAlimento;
 }
 
 //void NodeAVL::SetID(int id)
@@ -36,14 +36,14 @@ int NodeAVL::GetcodProduto() const
 //	m_ID = id;
 //}
 
-Product NodeAVL::GetProduto() const
+Alimento NodeAVL::GetAlimento() const
 {
-	return m_produto;
+	return m_alimento;
 }
 
-void NodeAVL::SetProduto(const Product& produto)
+void NodeAVL::SetAlimento(const Alimento& alimento)
 {
-	m_produto = produto;
+	m_alimento = alimento;
 }
 
 NodeAVL* NodeAVL::GetParent() const
@@ -151,13 +151,13 @@ std::string NodeAVL::ToString() const
 {
 	std::ostringstream oss;
 
-	oss << m_codProduto
-		<< " (" << m_produto.GetNome() << ")"
-		<< " Quantidade:" << m_produto.GetQtde()
-		<< " Valor Unitario:" << m_produto.GetValorUnitario()
-		<< " Parent:" << (m_Parent != nullptr ? m_Parent->GetcodProduto() : -1)
-		<< " Left:" << (m_Left != nullptr ? m_Left->GetcodProduto() : -1)
-		<< " Right:" << (m_Right != nullptr ? m_Right->GetcodProduto() : -1)
+	oss << m_codAlimento
+		<< " (" << m_alimento.GetNome() << ")"
+		<< " Quantidade:" << m_alimento.GetQtde()
+		<< " Valor Unitario:" << m_alimento.GetValorUnitario()
+		<< " Parent:" << (m_Parent != nullptr ? m_Parent->GetcodAlimento() : -1)
+		<< " Left:" << (m_Left != nullptr ? m_Left->GetcodAlimento() : -1)
+		<< " Right:" << (m_Right != nullptr ? m_Right->GetcodAlimento() : -1)
 		<< " Degree: " << GetDegree()
 		<< " Depth: " << GetDepth()
 		<< " Height: " << GetHeight()
@@ -166,17 +166,17 @@ std::string NodeAVL::ToString() const
 	return oss.str();
 }
 
-// mostra apenas informações relevantes do produto,
+// mostra apenas informações relevantes do alimento,
 // diferentemente do ToString() que apresenta dados
 // sobre a árvore também;
 std::string NodeAVL::SimpleToString() const
 {
 	std::ostringstream oss;
 
-	oss << m_codProduto
-		<< " (" << m_produto.GetNome() << ")"
-		<< " Quantidade:" << m_produto.GetQtde()
-		<< " Valor Unitario:" << m_produto.GetValorUnitario();
+	oss << m_codAlimento
+		<< " (" << m_alimento.GetNome() << ")"
+		<< " Quantidade:" << m_alimento.GetQtde()
+		<< " Valor Unitario:" << m_alimento.GetValorUnitario();
 
 	return oss.str();
 }
