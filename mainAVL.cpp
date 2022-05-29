@@ -196,7 +196,6 @@ int main()
 			case 6: op6(avl); break;
 			case 7: op7(avl); break;
 		}
-
 		std::cout << '\n';
 	} while (option != 8);
 
