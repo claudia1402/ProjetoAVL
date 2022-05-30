@@ -3,8 +3,8 @@
 #include "Utils.h"
 #include <sstream>
 
-NodeAVL::NodeAVL(int codAlimento, Alimento alimento, NodeAVL *parent, NodeAVL *left, NodeAVL *right)
-	: m_codAlimento(codAlimento)
+NodeAVL::NodeAVL(Alimento alimento, NodeAVL *parent, NodeAVL *left, NodeAVL *right)
+	: m_nomeAlimento(alimento.GetNome())
 	, m_alimento(alimento)
 	, m_Parent(parent)
 	, m_Left(left)
@@ -22,19 +22,14 @@ NodeAVL::~NodeAVL()
 
 void NodeAVL::CopynomeFrom(const NodeAVL* node)
 {
-	m_codAlimento = node->GetcodAlimento();
+	m_nomeAlimento = node->GetNomeAlimento();
 	m_alimento = node->GetAlimento();
 }
 
-int NodeAVL::GetcodAlimento() const
+std::string NodeAVL::GetNomeAlimento() const
 {
-	return m_codAlimento;
+	return m_nomeAlimento;
 }
-
-//void NodeAVL::SetID(int id)
-//{
-//	m_ID = id;
-//}
 
 Alimento NodeAVL::GetAlimento() const
 {
@@ -151,13 +146,11 @@ std::string NodeAVL::ToString() const
 {
 	std::ostringstream oss;
 
-	oss << m_codAlimento
+	oss << m_nomeAlimento
 		<< " (" << m_alimento.GetNome() << ")"
-		<< " Quantidade:" << m_alimento.GetQtde()
-		<< " Valor Unitario:" << m_alimento.GetValorUnitario()
-		<< " Parent:" << (m_Parent != nullptr ? m_Parent->GetcodAlimento() : -1)
-		<< " Left:" << (m_Left != nullptr ? m_Left->GetcodAlimento() : -1)
-		<< " Right:" << (m_Right != nullptr ? m_Right->GetcodAlimento() : -1)
+		<< " Parent:" << (m_Parent != nullptr ? m_Parent->GetNomeAlimento() : "")
+		<< " Left:" << (m_Left != nullptr ? m_Left->GetNomeAlimento() : "")
+		<< " Right:" << (m_Right != nullptr ? m_Right->GetNomeAlimento() : "")
 		<< " Degree: " << GetDegree()
 		<< " Depth: " << GetDepth()
 		<< " Height: " << GetHeight()
@@ -173,10 +166,8 @@ std::string NodeAVL::SimpleToString() const
 {
 	std::ostringstream oss;
 
-	oss << m_codAlimento
-		<< " (" << m_alimento.GetNome() << ")"
-		<< " Quantidade:" << m_alimento.GetQtde()
-		<< " Valor Unitario:" << m_alimento.GetValorUnitario();
+	oss << m_nomeAlimento
+		<< " (" << m_alimento.GetNome() << ")";
 
 	return oss.str();
 }

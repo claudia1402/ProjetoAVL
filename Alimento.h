@@ -3,27 +3,32 @@
 #define __ALIMENTO_H__
 
 #include <string>
+#include <list>
 
 class Alimento {
 public:
 	Alimento();
-	Alimento(int cod, const std::string &nome, int qtde, float valorUnitario);
-	
-
-	int GetCod() const;
-	void SetCod(int novoCod);
+	Alimento(std::string dados[]);
+	// food & serving: nome
+	// array nutrientes:
+	// Calorias: float (g)
+	// total gordura: float (g)
+	// sodio: float (g)
+	// potassio: float (g)
+	// total carboidrato: float (g)
+	// fibra dietética: float (g)
+	// acucares: float (g)
+	// proteina: float (g)
+	// gordura saturada: float (mg)
+	// colesterol: float (mg)
 	std::string GetNome() const;
 	void SetNome(std::string novoNome);
-	int GetQtde() const;
-	void SetQtde(int novaQtde);
-	float GetValorUnitario() const;
-	void SetValorUnitario(float novoValor);
+	std::list<float> GetNutrientes();
+	void SetNutrientes();
 
 private:
-	int m_cod;
 	std::string m_nome;
-	int m_qtde;
-	float m_valorUnitario;
+	std::list<float> m_nutrientes;
 };
 
 #endif

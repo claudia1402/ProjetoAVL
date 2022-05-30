@@ -1,13 +1,15 @@
 // mainAVL.cpp
 #include <iostream>
 #include <string>
+#include <fstream>
 #include "AVL.h"
+#include "Alimento.h"
 
-// Protótipos das funções presentes ----------------------
-void Insert(AVL* avl);		// está quebrado
+// Prototipos das funcoes presentes ----------------------
+void Insert(AVL* avl, Alimento novo_alimento);
 void Remove(AVL* avl);
-void Search(AVL* avl);		// precisa mudar para buscar pelo nome do alimento
-void Predecessor(AVL* avl); 
+void Search(AVL* avl);
+void Predecessor(AVL* avl);
 void Successor(AVL* avl);
 void FindMin(AVL* avl);
 void FindMax(AVL* avl);
@@ -16,18 +18,34 @@ void TraversePreOrder(AVL* avl);
 void TraversePostOrder(AVL* avl);
 void Clear(AVL* avl);
 
+// Lendo Arquivo CSV -----------------------------------
+void LerArq(){
+	std::string linha, temp;
+	std::ifstream arq("NutritionalFacts_Fruit_Vegetables_Seafood");
+	Alimento alimento;
+	std::string dados[10];
+	int j = 0;
+	if (arq.is_open()){
+		while(getline(arq, linha)){
+			temp = "";
+			for(int i =0; i<linha.size();i++ ){
+				if (linha[i] != ';'){
+					temp = temp + linha[i];
+				}
+			}
+			dados[j] = temp;
+			j++;
+			Alimento alimento = Alimento(dados);
+		}
+	}else{
+		std::cout<<"Erro! Nao foi possivel ler o arquivo";
+	}
+}
 
 // Implementações das funções ----------------------------
-void Insert(AVL* avl)
+void Insert(AVL* avl, Alimento novo_alimento)
 {
-	int	code, qntde;
-	std::string	nome;
-	float valorUnit;
-
-	std::cout << "Insert food code, name, quantity and unit value (in this order):\n";
-	std::cin >> code >> nome >> qntde >> valorUnit;
-	Alimento alimento(code, nome, qntde, valorUnit);
-	NodeAVL* node = avl->Insert(code, alimento);
+	NodeAVL* node = avl->Insert(novo_alimento);
 
 	if (node)
 		std::cout << "Node inserted!\n";
@@ -37,18 +55,18 @@ void Insert(AVL* avl)
 
 void Remove(AVL* avl)
 {
-	int num;
-	std::cout << "Remove number: ";
-	std::cin >> num;
-	avl->Remove(num);
+	std::string nomeAlimento;
+	std::cout << "Remove: ";
+	std::cin >> nomeAlimento;
+	avl->Remove(nomeAlimento);
 }
 
 void Search(AVL* avl)
 {
-	int num;
-	std::cout << "Search number: ";
-	std::cin >> num;
-	NodeAVL* node = avl->Search(num);
+	std::string nomeAlimento;
+	std::cout << "Search food name: ";
+	std::cin >> nomeAlimento;
+	NodeAVL* node = avl->Search(nomeAlimento);
 	if (node)
 		std::cout << "Node found:\n" << node->ToString();
 	else
@@ -57,26 +75,26 @@ void Search(AVL* avl)
 
 void Predecessor(AVL* avl)
 {
-	int num;
+	std::string nomeAlimento;
 	std::cout << "Find predecessor of: ";
-	std::cin >> num;
-	NodeAVL* node = avl->Predecessor(num);
+	std::cin >> nomeAlimento;
+	NodeAVL* node = avl->Predecessor(nomeAlimento);
 	if (node)
-		std::cout << "Predecessor of " << num << ":\n" << node->ToString();
+		std::cout << "Predecessor of " << nomeAlimento << ":\n" << node->ToString();
 	else
-		std::cout << "*** ERROR! There is no predecessor of " << num << "!\n";
+		std::cout << "*** ERROR! There is no predecessor of " << nomeAlimento << "!\n";
 }
 
 void Successor(AVL* avl)
 {
-	int num;
+	std::string nomeAlimento;
 	std::cout << "Find successor of: ";
-	std::cin >> num;
-	NodeAVL* node = avl->Successor(num);
+	std::cin >> nomeAlimento;
+	NodeAVL* node = avl->Successor(nomeAlimento);
 	if (node)
-		std::cout << "Successor of " << num << ":\n" << node->ToString();
+		std::cout << "Successor of " << nomeAlimento << ":\n" << node->ToString();
 	else
-		std::cout << "*** ERROR! There is no successor of " << num << "!\n";
+		std::cout << "*** ERROR! There is no successor of " << nomeAlimento << "!\n";
 }
 
 void FindMin(AVL* avl)
@@ -124,50 +142,22 @@ void Clear(AVL* avl)
 // dentro delas serão requisitadas as
 // variáveis p/ realizar operações
 
-void op1(AVL* avl); // Leitura dos Dados
-void op2(AVL* avl); // Valores Nutricionais
-void op3(AVL* avl); // Qntd de Calorias
-void op4(AVL* avl); // Qntd de Vitaminas
-void op5(AVL* avl); // Qntd de Proteínas
-void op6(AVL* avl); // Outras Informações
-void op7(AVL* avl); // Síntese Nutricional
+// Leitura dos Dados
+// Valores Nutricionais
+// Qntd de Calorias
+// Qntd de Vitaminas
+// Qntd de Proteínas
+// Outras Informações
+// Síntese Nutricional
 
 // Implementação das funções -----------------------------
 
-void op1(AVL* avl)
-{
-	return;
-}
-
-void op2(AVL* avl)
-{
-	return;
-}
-
-void op3(AVL* avl){
-	return;
-}
-
-void op4(AVL* avl)
-{
-	return;
-}
-
-void op5 (AVL* avl) {
-	return;
-}
-
-void op6 (AVL* avl) {
-	return;
-}
-
-void op7 (AVL* avl) {
-	return;
-}
 
 int main()
 {
 	AVL* avl = new AVL();
+
+	LerArq();
 
 	int option = -1;
 	do
@@ -178,9 +168,9 @@ int main()
 			<< "[2] Valores Nutricionais 	\n"
 			<< "[3] Quantidade de Calorias 	\n"
 			<< "[4] Quantidade de Vitaminas	\n"
-			<< "[5] Quantidade de Proteínas	\n"
-			<< "[6] Outras Informações		\n"
-			<< "[7] Síntese Nutricional		\n"
+			<< "[5] Quantidade de Proteinas	\n"
+			<< "[6] Outras Informacoes		\n"
+			<< "[7] Sintese Nutricional		\n"
 			<< "[8] EXIT					\n"
 			<< "Option: ";
 		std::cin >> option;
@@ -188,13 +178,7 @@ int main()
 
 		switch (option)
 		{
-			case 1: op1(avl); break;
-			case 2: op2(avl); break;
-			case 3: op3(avl); break;
-			case 4: op4(avl); break;
-			case 5: op5(avl); break;
-			case 6: op6(avl); break;
-			case 7: op7(avl); break;
+			
 		}
 		std::cout << '\n';
 	} while (option != 8);

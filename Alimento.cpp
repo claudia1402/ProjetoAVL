@@ -2,55 +2,28 @@
 #include "Utils.h"
 
 Alimento::Alimento(){
-    m_cod = -1;
     m_nome = "";
-    m_qtde = -1; 
-    m_valorUnitario = -1;
+	std::list<float> m_nutrientes;
 }
 
-Alimento::Alimento(int cod, const std::string &nome, int qtde, float valorUnitario)
-	: m_cod(cod)
-	, m_nome(nome)
-	, m_qtde(qtde)
-	, m_valorUnitario(valorUnitario)
-{	
-}
-
-int Alimento::GetCod() const
+Alimento::Alimento(std::string dados[])
 {
-	return m_cod; 
-}
-
-void Alimento::SetCod(int novoCod) 
-{
-	m_cod = novoCod;
+	m_nome = dados[0];
+	for (int i = 1; i < 11; i++)
+		m_nutrientes.push_back(std::stof(dados[i]));
 }
 
 std::string Alimento::GetNome() const 
 {
 	return m_nome;
 }
+
 void Alimento::SetNome(std::string novoNome) 
 {
-	m_nome = novoNome;  
+	m_nome = novoNome;
 }
 
-int Alimento::GetQtde() const 
+std::list<float> Alimento::GetNutrientes()
 {
-  	return m_qtde;
-}
-
-void Alimento::SetQtde(int novaQtde)
-{
-	m_qtde = novaQtde;  
-}
-
-float Alimento::GetValorUnitario() const
-{
-	return m_valorUnitario;
-}
-
-void Alimento::SetValorUnitario(float novoValor)
-{
-	m_valorUnitario = novoValor;
+	return m_nutrientes;
 }

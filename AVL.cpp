@@ -178,9 +178,9 @@ NodeAVL* AVL::FindMaxInternal(NodeAVL* node) const
 		return FindMaxInternal(node->GetRight());
 }
 
-NodeAVL* AVL::Predecessor(int codAlimento) const
+NodeAVL* AVL::Predecessor(std::string nomeAlimento) const
 {
-	NodeAVL* node = SearchInternal(m_Root, codAlimento);
+	NodeAVL* node = SearchInternal(m_Root, nomeAlimento);
 	return node == nullptr ? nullptr : PredecessorInternal(node);
 }
 
@@ -204,9 +204,9 @@ NodeAVL* AVL::PredecessorInternal(NodeAVL* node) const
 	}
 }
 
-NodeAVL* AVL::Successor(int codAlimento) const
+NodeAVL* AVL::Successor(std::string nomeAlimento) const
 {
-	NodeAVL* node = SearchInternal(m_Root, codAlimento);
+	NodeAVL* node = SearchInternal(m_Root, nomeAlimento);
 	return node == nullptr ? nullptr : SuccessorInternal(node);
 }
 
@@ -230,65 +230,64 @@ NodeAVL* AVL::SuccessorInternal(NodeAVL* node) const
 	}
 }
 
-NodeAVL* AVL::Search(int codAlimento) const
+NodeAVL* AVL::Search(std::string nomeAlimento) const
 {
-	return SearchInternal(m_Root, codAlimento);
+	return SearchInternal(m_Root, nomeAlimento);
 }
 
-NodeAVL* AVL::SearchInternal(NodeAVL* node, int &codAlimento) const
+NodeAVL* AVL::SearchInternal(NodeAVL* node, std::string nomeAlimento) const
 {
 	if (node == nullptr)
 		return nullptr;
-	else if (node->GetcodAlimento() == codAlimento)
+	else if (node->GetNomeAlimento() == nomeAlimento)
 		return node;
-	else if (node->GetcodAlimento() > codAlimento)
-		return SearchInternal(node->GetLeft(), codAlimento);
+	else if (node->GetNomeAlimento() > nomeAlimento)
+		return SearchInternal(node->GetLeft(), nomeAlimento);
 	else
-		return SearchInternal(node->GetRight(), codAlimento);
+		return SearchInternal(node->GetRight(), nomeAlimento);
 }
 
-NodeAVL* AVL::Insert(int codAlimento, Alimento Alimento)
+NodeAVL* AVL::Insert(Alimento alimento)
 {
 	if (IsEmpty())
 	{
-		m_Root = new NodeAVL(codAlimento, Alimento);
-		//m_Root->UpdateBalanceFactor();
+		m_Root = new NodeAVL(alimento);
 		return m_Root;
 	}
 
-	return InsertInternal(m_Root, nullptr, codAlimento, Alimento);
+	return InsertInternal(m_Root, nullptr, alimento);
 }
 
-NodeAVL* AVL::InsertInternal(NodeAVL* node, NodeAVL* parent, int codAlimento,  Alimento nome)
+NodeAVL* AVL::InsertInternal(NodeAVL* node, NodeAVL* parent, Alimento alimento)
 {
 	if (node == nullptr)
-		node = new NodeAVL(codAlimento, nome, parent);
-	else if (node->GetcodAlimento() == codAlimento)
+		node = new NodeAVL(alimento, parent);
+	else if (node->GetNomeAlimento() == alimento.GetNome())
 		return nullptr; // Error! Cannot insert duplicate.
-	else if (node->GetcodAlimento() > codAlimento)
-		node->SetLeft(InsertInternal(node->GetLeft(), node, codAlimento, nome));
-	else if (node->GetcodAlimento() < codAlimento)
-		node->SetRight(InsertInternal(node->GetRight(), node, codAlimento, nome));
+	else if (node->GetNomeAlimento() > alimento.GetNome())
+		node->SetLeft(InsertInternal(node->GetLeft(), node, alimento));
+	else if (node->GetNomeAlimento() < alimento.GetNome())
+		node->SetRight(InsertInternal(node->GetRight(), node, alimento));
 
 	node = Balance(node);
 	return node;
 }
 
-void AVL::Remove(int codAlimento)
+void AVL::Remove(std::string nomeAlimento)
 {
-	RemoveInternal(m_Root, codAlimento);
+	RemoveInternal(m_Root, nomeAlimento);
 }
 
-NodeAVL* AVL::RemoveInternal(NodeAVL* node, int codAlimento)
+NodeAVL* AVL::RemoveInternal(NodeAVL* node, std::string nomeAlimento)
 {
 	if (node == nullptr)
 		return nullptr;
-	else if (node->GetcodAlimento() == codAlimento)
+	else if (node->GetNomeAlimento() == nomeAlimento)
 		node = RemoveNode(node);
-	else if (node->GetcodAlimento() > codAlimento)
-		node->SetLeft(RemoveInternal(node->GetLeft(), codAlimento));
+	else if (node->GetNomeAlimento() > nomeAlimento)
+		node->SetLeft(RemoveInternal(node->GetLeft(), nomeAlimento));
 	else
-		node->SetRight(RemoveInternal(node->GetRight(), codAlimento));
+		node->SetRight(RemoveInternal(node->GetRight(), nomeAlimento));
 	
 	node = Balance(node);
 	return node;
@@ -330,12 +329,12 @@ NodeAVL* AVL::RemoveNode(NodeAVL* node)
 		// To remove the node, we are reducing the problem to Case 3.
 		// In this case, predecessor is located in the node's left child/subtree and
 		// is the node that has no right child/subtree.
-		NodeAVL* predecessor = Predecessor(node->GetcodAlimento());
+		NodeAVL* predecessor = Predecessor(node->GetNomeAlimento());
 
 		// Instead of only updating pointers, we are copying the nome from the
 		// predecessor to the node pointer and then we remove the predecessor node.
 		node->CopynomeFrom(predecessor);
-		node->SetLeft(RemoveInternal(node->GetLeft(), predecessor->GetcodAlimento()));
+		node->SetLeft(RemoveInternal(node->GetLeft(), predecessor->GetNomeAlimento()));
 	}
 
 	return node;
@@ -482,53 +481,19 @@ NodeAVL* AVL::Balance(NodeAVL* node)
 
 	return node;
 }
-//metodos Victor
-std::string AVL::percorre (int quant) { 
-	NodeAVL* node = FindMin();
-
-	std::ostringstream oss;
-	//oss << percorre(node->GetLeft(), quant);
-	while (node != nullptr)
-	{
-		if (node->GetAlimento().GetQtde() < quant) 
-			oss << node->SimpleToString();
-		
-		node = Successor(node->GetcodAlimento());
-	}
-		//oss << percorre(node->GetRight(), quant);
-	return oss.str();
-}
-//Metodos Claudia
-float AVL::StockValue() const
-{
-	NodeAVL* start = FindMin();
-	float totalValue = 0;
-	return StockValueInternal(start, totalValue);
-}
-
-float AVL::StockValueInternal(const NodeAVL* node, float totalValue) const
-{
-	while (node != nullptr)
-	{
-		totalValue += (node->GetAlimento().GetValorUnitario()) * (node->GetAlimento().GetQtde());
-
-		node = Successor(node->GetcodAlimento());
-	}
-	return totalValue;
-}
 
 NodeAVL* AVL::Search_name(std::string n_Alimento) const
 {
 	return SearchInternal_name(FindMin(), n_Alimento);
 }
 
-NodeAVL* AVL::SearchInternal_name(NodeAVL* node, std::string n_Alimento) const
+NodeAVL* AVL::SearchInternal_name(NodeAVL* node, std::string nomeAlimento) const
 {
-	while (Successor(node->GetcodAlimento()) != nullptr)
+	while (Successor(node->GetNomeAlimento()) != nullptr)
 	{
-		if (node->GetAlimento().GetNome() == n_Alimento)
+		if (node->GetAlimento().GetNome() == nomeAlimento)
 			return node;
-		node = Successor(node->GetcodAlimento());
+		node = Successor(node->GetNomeAlimento());
 	}
 	return nullptr;
 }

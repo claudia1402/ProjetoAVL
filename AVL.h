@@ -28,13 +28,13 @@ public:
 	NodeAVL* FindMin() const;
 	NodeAVL* FindMax() const;
 
-	NodeAVL* Predecessor(int codAlimento) const;
-	NodeAVL* Successor(int codAlimento) const;
+	NodeAVL* Predecessor(std::string nomeAlimento) const;
+	NodeAVL* Successor(std::string nomeAlimento) const;
 
-	NodeAVL* Search(int codAlimento) const;
+	NodeAVL* Search(std::string nomeAlimento) const;
 	NodeAVL* Search_name(std::string n_Alimento) const;
-	NodeAVL* Insert(int codAlimento, Alimento Alimento);
-	void Remove(int codAlimento);
+	NodeAVL* Insert(Alimento Alimento);
+	void Remove(std::string nomeAlimento);
 
 	float StockValue() const;
 	std::string percorre (int quant);
@@ -59,10 +59,10 @@ private:
 	NodeAVL* PredecessorInternal(NodeAVL* node) const;
 	NodeAVL* SuccessorInternal(NodeAVL* node) const;
 
-	NodeAVL* SearchInternal(NodeAVL* node, int& codAlimento) const;
-	NodeAVL* SearchInternal_name(NodeAVL* node, std::string n_Alimento) const;
-	NodeAVL* InsertInternal(NodeAVL* node, NodeAVL* parent, int codAlimento, Alimento Alimento);
-	NodeAVL* RemoveInternal(NodeAVL* node, int codAlimento);
+	NodeAVL* SearchInternal(NodeAVL* node, std::string nomeAlimento) const;
+	NodeAVL* SearchInternal_name(NodeAVL* node, std::string nomeAlimento) const;
+	NodeAVL* InsertInternal(NodeAVL* node, NodeAVL* parent, Alimento alimento);
+	NodeAVL* RemoveInternal(NodeAVL* node, std::string nomeAlimento);
 	NodeAVL* RemoveNode(NodeAVL* node);
 	void UpdateParentChild(NodeAVL* parent, const NodeAVL* child, NodeAVL* newChild);
 
@@ -72,7 +72,6 @@ private:
 	NodeAVL* RotateRightLeft(NodeAVL* node);
 
 	NodeAVL* Balance(NodeAVL* node);
-	float StockValueInternal(const NodeAVL* node, float totalValue) const;
 };
 
 #endif

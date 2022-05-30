@@ -7,14 +7,14 @@
 
 class NodeAVL {
 public:
-  NodeAVL(int codAlimento, Alimento alimento, NodeAVL *parent = nullptr,
+  NodeAVL(Alimento alimento, NodeAVL *parent = nullptr,
           NodeAVL *left = nullptr, NodeAVL *right = nullptr);
   ~NodeAVL();
 
   void CopynomeFrom(const NodeAVL *node);
 
-  int GetcodAlimento() const;
-  //void SetcodAlimento(int codAlimento);
+  std::string GetNomeAlimento() const;
+  //void SetNomeAlimento(std::string nomeAlimento);
 
   Alimento GetAlimento() const;
   void SetAlimento(const Alimento &alimento);
@@ -42,7 +42,7 @@ public:
   std::string SimpleToString() const;
 
 private:
-  int m_codAlimento;
+  std::string m_nomeAlimento;
   Alimento m_alimento;
 
   NodeAVL *m_Parent;
