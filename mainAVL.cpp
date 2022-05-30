@@ -163,6 +163,12 @@ void Clear(AVL *avl)
 // Leitura dos Dados
 // Valores Nutricionais
 // Qntd de Calorias
+void op3(AVL* avl){
+
+	std::list<std::string> consumidos = gera_consumidos();
+
+	std::cout << avl-> Qnt_Calories(consumidos); 
+}
 // Qntd de Vitaminas
 // Qntd de Proteínas
 // Outras Informações
@@ -175,6 +181,7 @@ int main()
 	AVL *avl = new AVL();
 
 	LerArq();
+	
 
 	int option = -1;
 	do
@@ -200,6 +207,8 @@ int main()
 			break;
 
 			// case 2: ValoresNutri(); break;
+
+			// case 3: Qnt_Calories(avl); break;
 		}
 		std::cout << '\n';
 	} while (option != 8);
