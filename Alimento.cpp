@@ -10,7 +10,7 @@ Alimento::Alimento(std::string dados[])
 {
 	m_nome = dados[0];
 	for (int i = 1; i < 11; i++)
-		m_nutrientes.push_back(std::stof(dados[i]));
+		m_nutrientes.push_back(std::stof(dados[i], nullptr));
 }
 
 std::string Alimento::GetNome() const 
