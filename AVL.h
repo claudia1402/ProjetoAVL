@@ -4,6 +4,8 @@
 
 #include "NodeAVL.h"
 #include "Alimento.h"
+#include <list>
+#include <iterator>
 
 class AVL
 {
@@ -36,9 +38,9 @@ public:
 	NodeAVL* Insert(Alimento Alimento);
 	void Remove(std::string nomeAlimento);
 
-	float StockValue() const;
 	std::string percorre (int quant);
-	
+	std::string QntdVitaminas (std::list<std::string> consumidos);
+
 
 private:
 	NodeAVL* m_Root;
@@ -70,8 +72,9 @@ private:
 	NodeAVL* RotateRight(NodeAVL* node);
 	NodeAVL* RotateLeftRight(NodeAVL* node);
 	NodeAVL* RotateRightLeft(NodeAVL* node);
-
 	NodeAVL* Balance(NodeAVL* node);
+
+	float QntdVitaminasInternal (std::string nomeAlimento, int vit);
 };
 
 #endif
