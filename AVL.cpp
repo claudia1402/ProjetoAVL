@@ -497,3 +497,30 @@ NodeAVL* AVL::SearchInternal_name(NodeAVL* node, std::string nomeAlimento) const
 	}
 	return nullptr;
 }
+
+std::string AVL::QntdProteinas (std::list<std::string> consumidos)
+{
+	std::list<std::string>::iterator it;
+	std::ostringstream oss;
+	float qntd_total = 0.0;
+
+	// itera por toda a lista adicionando as vitaminas
+	// correspondentes às variáveis qntd_total
+	for (it = consumidos.begin(); it != consumidos.end(); ++it)
+		qntd_total += QntdProteinasInternal(* it);
+
+	oss << "A quantidade total de Proteínas consumida foi de: "
+		<< qntd_total << std::endl;
+	return oss.str();
+}
+
+float AVL::QntdProteinasInternal (std::string nomeAlimento)
+{
+	// valor será um ponteiro para o início da lista
+	// que guarda os dados de cada alimento
+	auto valor = Search(nomeAlimento)->GetAlimento().GetNutrientes().begin();
+	
+	// incrementa o ponteiro para avançá-lo pela lista
+	std::advance(valor, 9);
+	return * valor;
+}
