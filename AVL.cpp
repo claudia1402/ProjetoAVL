@@ -497,3 +497,42 @@ NodeAVL* AVL::SearchInternal_name(NodeAVL* node, std::string nomeAlimento) const
 	}
 	return nullptr;
 }
+
+//Metodo Victor----
+std::string AVL::Sintese (NodeAVL *node, Alimento alimentos[]) { 
+	int j =0;
+	float caltotal=0.0, gordtotal=0.0, sodiototal=0.0, potastotal=0.0, carbototal=0.0, fibratotal=0.0, acucartotal=0.0, protetotal=0.0, saturatotal=0.0, colestotal=0.0;
+	if (node != nullptr)
+	{
+		std::ostringstream oss;
+		oss << Sintese(node->GetLeft(), quant);
+		if (node->GetNomeAlimento() == alimentos[j] ) 
+		{
+			caltotal= caltotal + alimentos.caloria //incrementa a variável total com valor de caloria de cada alimento da refeição
+			gordtotal=
+			sodiototal=
+			potastotal=
+			carbototal=
+			fibratotal= 
+			acucartotal=
+			protetotal=
+			saturatotal=
+			colestotal=
+			
+			j++;
+		}
+		oss << Sintese(node->GetRight(), quant);
+		std::cout << "Sintese de Nutrientes\n" //pode ser substituido chamando os outros métodos
+				  << "Calorias: " << caltotal << endl;
+				  << "Gorduras Totais: " << gordtotal << endl;
+				  << "Calorias: " << sodiototal << endl;
+				  << "Calorias: " << postastotal << endl;
+				  << "Calorias: " << carbototal << endl;
+				  << "Calorias: " << fibratotal << endl;
+				  << "Calorias: " << acucartotal << endl;
+				  << "Calorias: " << protetotal << endl;
+				  << "Calorias: " << saturatotal << endl;
+				  << "Calorias: " << colestotal << endl;
+	}
+
+}

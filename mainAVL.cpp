@@ -168,6 +168,17 @@ void Clear(AVL *avl)
 // Outras Informações
 // Síntese Nutricional
 
+void SinteseNutri(AVL* avl){
+	int qtde;
+	Alimento comida;
+	std::cout<<"Defina a quantidade de alimentos consumidos";
+	std::cin>> qtde;
+	Alimento alimentos[qtde]; // Importando a relação de alimentos consumidos. Talvez o vetor possa ser do tipo string, pois só será usado o nome do alimento
+	for(int i=0; i<qtde; i++) //popula vetor
+		std::cin>>comida;
+	Sintese(avl, alimentos);
+}
+
 // Implementação das funções -----------------------------
 
 int main()
@@ -195,11 +206,13 @@ int main()
 
 		switch (option)
 		{
-		case 1:
-			TraverseInOrder(avl);
-			break;
+			case 1:
+				TraverseInOrder(avl);
+				break;
 
-			// case 2: ValoresNutri(); break;
+			case 7:
+				SinteseNutri(avl);
+				break;
 		}
 		std::cout << '\n';
 	} while (option != 8);

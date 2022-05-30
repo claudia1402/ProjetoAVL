@@ -72,6 +72,7 @@ private:
 	NodeAVL* RotateRightLeft(NodeAVL* node);
 
 	NodeAVL* Balance(NodeAVL* node);
+	NodeAVL* Sintese(NodeAVL* node, Alimento alimentos[]);
 };
 
 #endif
