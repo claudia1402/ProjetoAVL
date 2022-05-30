@@ -153,6 +153,19 @@ void Clear(AVL *avl)
 	avl->Clear();
 }
 
+void ValoresNutri(AVL *avl)
+{
+	std::string nomeAlimento;
+	std::cout << "Search food name: ";
+	std::cin >> nomeAlimento;
+	NodeAVL *node = avl->ValoresNutri(nomeAlimento);
+	if (node)
+		std::cout << "Node found:\n"
+				  << node->ToString();
+	else
+		std::cout << "*** ERROR! Couldn't find node!\n";
+}
+
 // Funções da atividade ----------------------------------
 
 // Estas funções que são chamadas

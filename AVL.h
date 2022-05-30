@@ -22,7 +22,7 @@ public:
 	std::string TraverseInOrder() const;
 	std::string TraversePreOrder() const;
 	std::string TraversePostOrder() const;
-
+	std::string ValoresNutri(std::string nomeAlimento);
 	std::string SimpleTraverseInOrder() const;
 
 	NodeAVL* FindMin() const;
@@ -50,7 +50,7 @@ private:
 	std::string TraverseInOrderInternal(const NodeAVL* node) const;
 	std::string TraversePreOrderInternal(const NodeAVL* node) const;
 	std::string TraversePostOrderInternal(const NodeAVL* node) const;
-
+	std::string ValoresNutriInternal(NodeAVL* node, std::string nomeAlimento) const;
 	std::string SimpleTraverseInOrderInternal(const NodeAVL* node) const;
 
 	NodeAVL* FindMinInternal(NodeAVL* node) const;
