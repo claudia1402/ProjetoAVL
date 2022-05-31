@@ -498,6 +498,7 @@ NodeAVL* AVL::SearchInternal_name(NodeAVL* node, std::string nomeAlimento) const
 	return nullptr;
 }
 
+
 std::string AVL::QntdVitaminas (std::list<std::string> consumidos)
 {
 	std::list<std::string>::iterator it;
@@ -529,3 +530,23 @@ float AVL::QntdVitaminasInternal (std::string nomeAlimento, int vit)
 	std::advance(valor, vit);
 	return * valor;
 }
+
+std::string AVL::Qnt_Calories(std::list<std::string> consumidos){
+	std::list<std::string>::iterator it;std::ostringstream oss;
+	float qnt_total = 0.0;
+	
+	for  (it = consumidos.begin(); it != consumidos.end(); it++){
+		qnt_total += Qnt_CaloriesInternal(* it);
+	}
+	oss << "Quantidade de calorias cosumidos é de:" << qnt_total << std::endl;
+
+	return oss.str();
+
+}
+
+float AVL::Qnt_CaloriesInternal(std::string nomeAlimento){
+	auto valor = Search(nomeAlimento)->GetAlimento().GetNutrientes().begin();
+    std::advance(valor, 1);
+    return * valor;
+}
+
