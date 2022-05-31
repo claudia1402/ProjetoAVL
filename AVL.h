@@ -38,7 +38,8 @@ public:
 
 	float StockValue() const;
 	std::string percorre (int quant);
-	
+
+	std::string OutrasInfos (std::list<std::string> consumidos);
 
 private:
 	NodeAVL* m_Root;
@@ -72,6 +73,8 @@ private:
 	NodeAVL* RotateRightLeft(NodeAVL* node);
 
 	NodeAVL* Balance(NodeAVL* node);
+
+	void OutrasInfosInternal (std::string nomeAlimento, float qnts[]);
 };
 
 #endif
