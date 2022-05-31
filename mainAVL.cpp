@@ -153,6 +153,14 @@ void Clear(AVL *avl)
 	avl->Clear();
 }
 
+void ValoresNutri(AVL *avl)
+{
+	std::string nomeAlimento;
+	std::cout << "Search food name: ";
+	std::cin >> nomeAlimento;
+	std::cout << avl->ValoresNutri(nomeAlimento);
+}
+
 // Funções da atividade ----------------------------------
 
 // Estas funções que são chamadas

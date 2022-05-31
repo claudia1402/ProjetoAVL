@@ -38,7 +38,7 @@ public:
 
 	float StockValue() const;
 	std::string percorre (int quant);
-	
+	std::string ValoresNutri(std::string nomeAlimento);
 
 private:
 	NodeAVL* m_Root;
@@ -72,6 +72,7 @@ private:
 	NodeAVL* RotateRightLeft(NodeAVL* node);
 
 	NodeAVL* Balance(NodeAVL* node);
+	float ValoresNutriInternal(std::string nomeAlimento, int pos);
 };
 
 #endif
