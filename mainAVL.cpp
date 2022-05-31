@@ -2,6 +2,8 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <list>
+#include <iterator>
 #include "AVL.h"
 #include "Alimento.h"
 
@@ -155,6 +157,21 @@ void Clear(AVL *avl)
 
 // Funções da atividade ----------------------------------
 
+std::list<std::string> gera_consumidos() 
+{
+	std::list<std::string> lista_consumidos;
+	std::string consumidos;
+
+	std::cout << "Quais foram os alimentos consumidos (digite '-1' para finalizar): ";
+	while (true)
+	{
+		std::cin >> consumidos;
+		if (consumidos == "-1") return lista_consumidos;
+		else lista_consumidos.push_back(consumidos);
+	}
+}
+
+
 // Estas funções que são chamadas
 // pela main devem receber a AVL e
 // dentro delas serão requisitadas as
@@ -163,9 +180,33 @@ void Clear(AVL *avl)
 // Leitura dos Dados
 // Valores Nutricionais
 // Qntd de Calorias
+void op3(AVL* avl){
+
+	std::list<std::string> consumidos = gera_consumidos();
+
+	std::cout << avl-> Qnt_Calories(consumidos); 
+}
 // Qntd de Vitaminas
+void op4 (AVL *avl)
+{
+	std::list<std::string> consumidos = gera_consumidos();
+
+	std::cout << avl->QntdVitaminas(consumidos);
+}
 // Qntd de Proteínas
+void op5 (AVL *avl)
+{
+	std::list<std::string> consumidos = gera_consumidos();
+
+	std::cout << avl -> QntdProteinas(consumidos);
+}
 // Outras Informações
+void op6 (AVL * avl)
+{
+	std::list<std::string> consumidos = gera_consumidos();
+
+	std::cout << avl->OutrasInfos(consumidos) << std::endl;
+}
 // Síntese Nutricional
 
 void SinteseNutri(AVL* avl){
@@ -189,6 +230,7 @@ int main()
 	AVL *avl = new AVL();
 
 	LerArq();
+	
 
 	int option = -1;
 	do
@@ -213,9 +255,15 @@ int main()
 				TraverseInOrder(avl);
 				break;
 
+
 			case 7:
 				SinteseNutri(avl);
 				break;
+
+			// case 2: ValoresNutri(); break;
+
+			// case 3: Qnt_Calories(avl); break;
+
 		}
 		std::cout << '\n';
 	} while (option != 8);
