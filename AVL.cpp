@@ -499,40 +499,87 @@ NodeAVL* AVL::SearchInternal_name(NodeAVL* node, std::string nomeAlimento) const
 }
 
 //Metodo Victor----
-std::string AVL::Sintese (NodeAVL *node, Alimento alimentos[]) { 
-	int j =0;
-	float caltotal=0.0, gordtotal=0.0, sodiototal=0.0, potastotal=0.0, carbototal=0.0, fibratotal=0.0, acucartotal=0.0, protetotal=0.0, saturatotal=0.0, colestotal=0.0;
-	if (node != nullptr)
-	{
-		std::ostringstream oss;
-		oss << Sintese(node->GetLeft(), quant);
-		if (node->GetNomeAlimento() == alimentos[j] ) 
-		{
-			caltotal= caltotal + alimentos.caloria //incrementa a variável total com valor de caloria de cada alimento da refeição
-			gordtotal=
-			sodiototal=
-			potastotal=
-			carbototal=
-			fibratotal= 
-			acucartotal=
-			protetotal=
-			saturatotal=
-			colestotal=
-			
-			j++;
-		}
-		oss << Sintese(node->GetRight(), quant);
-		std::cout << "Sintese de Nutrientes\n" //pode ser substituido chamando os outros métodos
-				  << "Calorias: " << caltotal << endl;
-				  << "Gorduras Totais: " << gordtotal << endl;
-				  << "Calorias: " << sodiototal << endl;
-				  << "Calorias: " << postastotal << endl;
-				  << "Calorias: " << carbototal << endl;
-				  << "Calorias: " << fibratotal << endl;
-				  << "Calorias: " << acucartotal << endl;
-				  << "Calorias: " << protetotal << endl;
-				  << "Calorias: " << saturatotal << endl;
-				  << "Calorias: " << colestotal << endl;
-	}
+std::string AVL::Sintese (std::list<std::string> consumidos)
+{
+	std::ostringstream oss;
+	std::list<std::string>::iterator it = consumidos.begin();
+	std::string dados[12] = {"Calorias","Gorduras","Sodio","Potassio",
+							"Carboidratos","Fibras","Açucar","Proteinas",
+							"Gorduras Saturadas","Colesterol","Vitamina A",
+							"Vitamina C"};
+	float totais[12] = {0};
 
+	// Calcula as quantidades de cada nutriente
+	for (; it != consumidos.end(); it++)
+		SinteseInternal(totais, *it);
+
+	// Cria a string de saída
+	oss << "Sintese de Nutrientes" << std::endl
+		<< "---------------------" << std::endl;
+	for (int i = 0; i < 12; i++)
+		oss << "|" << dados[i] << ":" << totais[i] << "|" << std::endl;
+	oss << "---------------------";
+
+	return oss.str();
+	// if (node != nullptr)
+	// {
+	// 	std::ostringstream oss;
+	// 	oss << Sintese(node->GetLeft(), quant);
+	// 	if (node->GetNomeAlimento() == alimentos[j] ) 
+	// 	{
+	// 		caltotal= caltotal + alimentos.caloria //incrementa a variável total com valor de caloria de cada alimento da refeição
+	// 		gordtotal=
+	// 		sodiototal=
+	// 		potastotal=
+	// 		carbototal=
+	// 		fibratotal= 
+	// 		acucartotal=
+	// 		protetotal=
+	// 		saturatotal=
+	// 		colestotal=
+			
+	// 		j++;
+	// 	}
+	// 	oss << Sintese(node->GetRight(), quant);
+	// 	std::cout << "Sintese de Nutrientes\n" //pode ser substituido chamando os outros métodos
+	// 			  << "Calorias: " << caltotal << endl;
+	// 			  << "Gorduras Totais: " << gordtotal << endl;
+	// 			  << "Calorias: " << sodiototal << endl;
+	// 			  << "Calorias: " << postastotal << endl;
+	// 			  << "Calorias: " << carbototal << endl;
+	// 			  << "Calorias: " << fibratotal << endl;
+	// 			  << "Calorias: " << acucartotal << endl;
+	// 			  << "Calorias: " << protetotal << endl;
+	// 			  << "Calorias: " << saturatotal << endl;
+	// 			  << "Calorias: " << colestotal << endl;
+	// }
+}
+
+void AVL::SinteseInternal(float qntds[], std::string nomeAlimento)
+{
+	std::list<float>::iterator it;
+
+	it = Search(nomeAlimento) -> GetAlimento().GetNutrientes().begin();
+	std::advance(it, 1);
+
+	for (int i = 0; i < 12; i++, it++)
+	{
+		switch (i)
+		{
+			case 0:
+				qntds[0] += Qnt_CaloriesInternal(*it);
+				break;
+			case 8:
+				qntds[8] += QntdProteinasInternal(*it);
+				break;
+			case 11:
+				qntds[11] += QntdVitaminasInternal(*it, 12);
+				break;
+			case 12:
+				qntds[12] += QntdVitaminasInternal(*it, 13);
+			default:
+				qntds[i] += * it;
+				break;
+		}
+	}
 }

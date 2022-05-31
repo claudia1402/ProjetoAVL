@@ -169,14 +169,17 @@ void Clear(AVL *avl)
 // Síntese Nutricional
 
 void SinteseNutri(AVL* avl){
-	int qtde;
-	Alimento comida;
-	std::cout<<"Defina a quantidade de alimentos consumidos";
-	std::cin>> qtde;
-	Alimento alimentos[qtde]; // Importando a relação de alimentos consumidos. Talvez o vetor possa ser do tipo string, pois só será usado o nome do alimento
-	for(int i=0; i<qtde; i++) //popula vetor
-		std::cin>>comida;
-	Sintese(avl, alimentos);
+	// int qtde;
+	// Alimento comida;
+	// std::cout<<"Defina a quantidade de alimentos consumidos";
+	// std::cin>> qtde;
+	// Alimento alimentos[qtde]; // Importando a relação de alimentos consumidos. Talvez o vetor possa ser do tipo string, pois só será usado o nome do alimento
+	// for(int i=0; i<qtde; i++) //popula vetor
+	// 	std::cin>>comida;
+	// Sintese(avl, alimentos);
+
+	std::list<std::string> consumidos = gera_consumidos();
+	std::cout << avl->Sintese(consumidos) << std::endl;
 }
 
 // Implementação das funções -----------------------------

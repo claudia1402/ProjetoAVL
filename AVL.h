@@ -38,6 +38,7 @@ public:
 
 	float StockValue() const;
 	std::string percorre (int quant);
+	std::string Sintese(std::list<std::string> consumidos);
 	
 
 private:
@@ -72,7 +73,7 @@ private:
 	NodeAVL* RotateRightLeft(NodeAVL* node);
 
 	NodeAVL* Balance(NodeAVL* node);
-	NodeAVL* Sintese(NodeAVL* node, Alimento alimentos[]);
+	void SinteseInternal(float totais[], std::string nomeAlimento);
 };
 
 #endif
