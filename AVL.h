@@ -38,6 +38,7 @@ public:
 
 	float StockValue() const;
 	std::string percorre (int quant);
+	std::string Qnt_Calories(std::list<std::string> consumidos);
 	
 
 private:
@@ -65,6 +66,7 @@ private:
 	NodeAVL* RemoveInternal(NodeAVL* node, std::string nomeAlimento);
 	NodeAVL* RemoveNode(NodeAVL* node);
 	void UpdateParentChild(NodeAVL* parent, const NodeAVL* child, NodeAVL* newChild);
+	float Qnt_CaloriesInternal(std::string nomeAlimento);
 
 	NodeAVL* RotateLeft(NodeAVL* node);
 	NodeAVL* RotateRight(NodeAVL* node);
