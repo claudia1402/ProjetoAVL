@@ -498,15 +498,26 @@ NodeAVL* AVL::SearchInternal_name(NodeAVL* node, std::string nomeAlimento) const
 	return nullptr;
 }
 
+
 std::string AVL::QntdProteinas (std::list<std::string> consumidos)
 {
 	std::list<std::string>::iterator it;
 	std::ostringstream oss;
 	float qntd_total = 0.0;
 
+
+std::string AVL::QntdVitaminas (std::list<std::string> consumidos)
+{
+	std::list<std::string>::iterator it;
+	std::ostringstream oss;
+	float qntd_total_a = 0.0;
+	float qntd_total_c = 0.0;
+
+
 	// itera por toda a lista adicionando as vitaminas
 	// correspondentes às variáveis qntd_total
 	for (it = consumidos.begin(); it != consumidos.end(); ++it)
+
 		qntd_total += QntdProteinasInternal(* it);
 
 	oss << "A quantidade total de Proteínas consumida foi de: "
@@ -515,12 +526,51 @@ std::string AVL::QntdProteinas (std::list<std::string> consumidos)
 }
 
 float AVL::QntdProteinasInternal (std::string nomeAlimento)
+
+	{
+		qntd_total_a += QntdVitaminasInternal(* it, 12);
+		qntd_total_c += QntdVitaminasInternal(* it, 13);
+	}
+	oss << "A quantidade de Vitamina A consumida foi de: "
+		<< qntd_total_a << std::endl
+		<< "A quantidade de Vitamina C consumida foi de: "
+		<< qntd_total_c << std::endl;
+	return oss.str();
+}
+
+float AVL::QntdVitaminasInternal (std::string nomeAlimento, int vit)
+
 {
 	// valor será um ponteiro para o início da lista
 	// que guarda os dados de cada alimento
 	auto valor = Search(nomeAlimento)->GetAlimento().GetNutrientes().begin();
 	
 	// incrementa o ponteiro para avançá-lo pela lista
+
 	std::advance(valor, 9);
 	return * valor;
 }
+
+	std::advance(valor, vit);
+	return * valor;
+}
+
+std::string AVL::Qnt_Calories(std::list<std::string> consumidos){
+	std::list<std::string>::iterator it;std::ostringstream oss;
+	float qnt_total = 0.0;
+	
+	for  (it = consumidos.begin(); it != consumidos.end(); it++){
+		qnt_total += Qnt_CaloriesInternal(* it);
+	}
+	oss << "Quantidade de calorias cosumidos é de:" << qnt_total << std::endl;
+
+	return oss.str();
+
+}
+
+float AVL::Qnt_CaloriesInternal(std::string nomeAlimento){
+	auto valor = Search(nomeAlimento)->GetAlimento().GetNutrientes().begin();
+    std::advance(valor, 1);
+    return * valor;
+}
+
