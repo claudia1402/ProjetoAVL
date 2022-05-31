@@ -201,6 +201,12 @@ void op5 (AVL *avl)
 	std::cout << avl -> QntdProteinas(consumidos);
 }
 // Outras Informações
+void op6 (AVL * avl)
+{
+	std::list<std::string> consumidos = gera_consumidos();
+
+	std::cout << avl->OutrasInfos(consumidos) << std::endl;
+}
 // Síntese Nutricional
 
 // Implementação das funções -----------------------------
