@@ -187,6 +187,12 @@ void op3(AVL* avl){
 	std::cout << avl-> Qnt_Calories(consumidos); 
 }
 // Qntd de Vitaminas
+void op4 (AVL *avl)
+{
+	std::list<std::string> consumidos = gera_consumidos();
+
+	std::cout << avl->QntdVitaminas(consumidos);
+}
 // Qntd de Proteínas
 // Outras Informações
 // Síntese Nutricional
