@@ -40,6 +40,9 @@ public:
 
 	std::string percorre (int quant);
 
+	std::string Sintese(std::list<std::string> consumidos);
+
+
 
 	std::string OutrasInfos (std::list<std::string> consumidos);
 
@@ -50,6 +53,7 @@ public:
 
 
 	std::string Qnt_Calories(std::list<std::string> consumidos);
+
 	
 
 
@@ -88,6 +92,9 @@ private:
 	NodeAVL* RotateRightLeft(NodeAVL* node);
 	NodeAVL* Balance(NodeAVL* node);
 
+	void SinteseInternal(float totais[], std::string nomeAlimento);
+
+
 
 	void OutrasInfosInternal (std::string nomeAlimento, float qnts[]);
 
@@ -95,6 +102,7 @@ private:
 	float QntdProteinasInternal (std::string nomeAlimento);
 
 	float QntdVitaminasInternal (std::string nomeAlimento, int vit);
+
 
 };
 
