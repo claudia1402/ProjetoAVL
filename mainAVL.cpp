@@ -160,8 +160,8 @@ void ValoresNutri(AVL *avl)
 	std::cin >> nomeAlimento;
 	NodeAVL *node = avl->ValoresNutri(nomeAlimento);
 	if (node)
-		std::cout << "Node found:\n"
-				  << node->ToString();
+		// std::cout << "Node found:\n"
+		// 		  << node->ToStringAlimento();
 	else
 		std::cout << "*** ERROR! Couldn't find node!\n";
 }

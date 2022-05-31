@@ -500,19 +500,19 @@ NodeAVL* AVL::SearchInternal_name(NodeAVL* node, std::string nomeAlimento) const
 
 
 //metodo 2 -claudinha
-std::string AVL::ValoresNutri(std::string nomeAlimento) const
+NodeAVL* AVL::ValoresNutri(std::string nomeAlimento) const
 {
 	return ValoresNutriInternal(m_Root, nomeAlimento);
 }
 
-std::string AVL::ValoresNutriInternal(NodeAVL* node, std::string nomeAlimento) const
+NodeAVL* AVL::ValoresNutriInternal(NodeAVL* node, std::string nomeAlimento) const
 {
 	if (node == nullptr)
 		return nullptr;
 	else if (node->GetNomeAlimento() == nomeAlimento)
 		return node;
 	else if (node->GetNomeAlimento() > nomeAlimento)
-		return SearchInternal(node->GetLeft(), nomeAlimento);
+		return ValoresNutriInternal(node->GetLeft(), nomeAlimento);
 	else
-		return SearchInternal(node->GetRight(), nomeAlimento);
+		return ValoresNutriInternal(node->GetRight(), nomeAlimento);
 }
