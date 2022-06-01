@@ -536,16 +536,16 @@ void AVL::SinteseInternal(float qntds[], std::string nomeAlimento)
 		switch (i)
 		{
 		case 0:
-				qntds[0] += Qnt_CaloriesInternal(*it);
+				qntds[0] += Qnt_CaloriesInternal(nomeAlimento);
 				break;
 			case 8:
-				qntds[8] += QntdProteinasInternal(*it);
+				qntds[8] += QntdProteinasInternal(nomeAlimento);
 				break;
 			case 11:
-				qntds[11] += QntdVitaminasInternal(*it, 12);
+				qntds[11] += QntdVitaminasInternal(nomeAlimento, 12);
 				break;
 			case 12:
-				qntds[12] += QntdVitaminasInternal(*it, 13);
+				qntds[12] += QntdVitaminasInternal(nomeAlimento, 13);
 			default:
 				qntds[i] += * it;
 				break;
