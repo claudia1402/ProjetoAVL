@@ -499,6 +499,43 @@ NodeAVL* AVL::SearchInternal_name(NodeAVL* node, std::string nomeAlimento) const
 }
 
 
+std::string AVL::ValoresNutri(std::string nomeAlimento) {
+	
+	std::ostringstream oss;
+
+	std::string nomes[12] = {"calories: ","total fat (g): ", "sodium (g): ", "potassium (g): ", "total carbo-hydrate (g): ", "dietary Fiber (g): ", "sugars (g): ", "protein (g): ", "saturated fat (mg): ", "cholesterol (mg): ", "vitamin a (DV): ", "vitamin c (DV): "};
+	float valores[12];
+    for (int i = 0; i < 12; i++)
+	{
+		valores[i] = ValoresNutriInternal(nomeAlimento, i+2);
+    }
+    oss << nomes[0] << valores[0] 
+	<<   nomes[1] << valores[1]
+	<< nomes[2] << valores[2]
+	<< nomes[3] << valores[3]
+	<< nomes[4] << valores[4]
+	<< nomes[5] << valores[5]
+	<< nomes[6] << valores[6]
+	<< nomes[7] << valores[7]
+	<< nomes[8] << valores[8]
+	<< nomes[9] << valores[9]
+	<< nomes[10] << valores[10]
+	<< nomes[11] << valores[11]
+	<< std::endl;
+    return oss.str();
+
+}
+
+float AVL::ValoresNutriInternal(std::string nomeAlimento, int pos){
+
+    auto valor = Search(nomeAlimento)->GetAlimento().GetNutrientes().begin();
+    
+    std::advance(valor, pos);
+    return * valor;
+
+}
+
+
 //Metodo Victor----
 std::string AVL::Sintese (std::list<std::string> consumidos)
 {
@@ -692,4 +729,5 @@ float AVL::Qnt_CaloriesInternal(std::string nomeAlimento){
     std::advance(valor, 1);
     return * valor;
 }
+
 
