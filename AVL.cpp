@@ -498,6 +498,7 @@ NodeAVL* AVL::SearchInternal_name(NodeAVL* node, std::string nomeAlimento) const
 	return nullptr;
 }
 
+
 std::string AVL::ValoresNutri(std::string nomeAlimento) {
 	
 	std::ostringstream oss;
@@ -533,3 +534,200 @@ float AVL::ValoresNutriInternal(std::string nomeAlimento, int pos){
     return * valor;
 
 }
+
+
+//Metodo Victor----
+std::string AVL::Sintese (std::list<std::string> consumidos)
+{
+	std::ostringstream oss;
+	std::list<std::string>::iterator it = consumidos.begin();
+	std::string dados[12] = {"Calorias","Gorduras","Sodio","Potassio",
+							"Carboidratos","Fibras","Açucar","Proteinas",
+							"Gorduras Saturadas","Colesterol","Vitamina A",
+							"Vitamina C"};
+	float totais[12] = {0};
+
+	// Calcula as quantidades de cada nutriente
+	for (; it != consumidos.end(); it++)
+		SinteseInternal(totais, *it);
+
+	// Cria a string de saída
+	oss << "Sintese de Nutrientes" << std::endl
+		<< "---------------------" << std::endl;
+	for (int i = 0; i < 12; i++)
+		oss << "|" << dados[i] << ":" << totais[i] << "|" << std::endl;
+	oss << "---------------------";
+
+	return oss.str();
+	// if (node != nullptr)
+	// {
+	// 	std::ostringstream oss;
+	// 	oss << Sintese(node->GetLeft(), quant);
+	// 	if (node->GetNomeAlimento() == alimentos[j] ) 
+	// 	{
+	// 		caltotal= caltotal + alimentos.caloria //incrementa a variável total com valor de caloria de cada alimento da refeição
+	// 		gordtotal=
+	// 		sodiototal=
+	// 		potastotal=
+	// 		carbototal=
+	// 		fibratotal= 
+	// 		acucartotal=
+	// 		protetotal=
+	// 		saturatotal=
+	// 		colestotal=
+			
+	// 		j++;
+	// 	}
+	// 	oss << Sintese(node->GetRight(), quant);
+	// 	std::cout << "Sintese de Nutrientes\n" //pode ser substituido chamando os outros métodos
+	// 			  << "Calorias: " << caltotal << endl;
+	// 			  << "Gorduras Totais: " << gordtotal << endl;
+	// 			  << "Calorias: " << sodiototal << endl;
+	// 			  << "Calorias: " << postastotal << endl;
+	// 			  << "Calorias: " << carbototal << endl;
+	// 			  << "Calorias: " << fibratotal << endl;
+	// 			  << "Calorias: " << acucartotal << endl;
+	// 			  << "Calorias: " << protetotal << endl;
+	// 			  << "Calorias: " << saturatotal << endl;
+	// 			  << "Calorias: " << colestotal << endl;
+	// }
+}
+
+void AVL::SinteseInternal(float qntds[], std::string nomeAlimento)
+
+
+std::string AVL::OutrasInfos (std::list<std::string> consumidos)
+{
+	std::list<std::string>::iterator it;
+	std::ostringstream oss;
+	float qntdes_totais[8] = {0};
+	std::string nutrientes[] = {"Sódio", "Potássio","Carboidrato","Fibras","Açúcares","Proteína","Gordura Saturada","Colesterol"};
+
+	for (it = consumidos.begin(); it != consumidos.end(); ++it)
+		OutrasInfosInternal (* it, qntdes_totais);
+	
+	oss << "Foram consumidos: " << std::endl;
+	for (int i = 0; i < 8; i++)
+		oss << qntdes_totais[i] << " de "
+			<< nutrientes[i] << std::endl;
+	
+	return oss.str();
+}
+
+void AVL::OutrasInfosInternal (std::string nomeAlimento, float qnts[])
+
+{
+	std::list<float>::iterator it;
+
+	it = Search(nomeAlimento) -> GetAlimento().GetNutrientes().begin();
+
+	std::advance(it, 1);
+
+	for (int i = 0; i < 12; i++, it++)
+	{
+		switch (i)
+		{
+			case 0:
+				qntds[0] += Qnt_CaloriesInternal(*it);
+				break;
+			case 8:
+				qntds[8] += QntdProteinasInternal(*it);
+				break;
+			case 11:
+				qntds[11] += QntdVitaminasInternal(*it, 12);
+				break;
+			case 12:
+				qntds[12] += QntdVitaminasInternal(*it, 13);
+			default:
+				qntds[i] += * it;
+				break;
+		}
+	}
+}
+
+	std::advance(it, 3);
+
+	for (int i = 0; i < 8; i++)
+	{
+		qnts[i] += * it;
+		std::advance(it, 1);
+	}
+}
+
+
+std::string AVL::QntdProteinas (std::list<std::string> consumidos)
+{
+	std::list<std::string>::iterator it;
+	std::ostringstream oss;
+	float qntd_total = 0.0;
+
+
+std::string AVL::QntdVitaminas (std::list<std::string> consumidos)
+{
+	std::list<std::string>::iterator it;
+	std::ostringstream oss;
+	float qntd_total_a = 0.0;
+	float qntd_total_c = 0.0;
+
+
+	// itera por toda a lista adicionando as vitaminas
+	// correspondentes às variáveis qntd_total
+	for (it = consumidos.begin(); it != consumidos.end(); ++it)
+
+		qntd_total += QntdProteinasInternal(* it);
+
+	oss << "A quantidade total de Proteínas consumida foi de: "
+		<< qntd_total << std::endl;
+	return oss.str();
+}
+
+float AVL::QntdProteinasInternal (std::string nomeAlimento)
+
+	{
+		qntd_total_a += QntdVitaminasInternal(* it, 12);
+		qntd_total_c += QntdVitaminasInternal(* it, 13);
+	}
+	oss << "A quantidade de Vitamina A consumida foi de: "
+		<< qntd_total_a << std::endl
+		<< "A quantidade de Vitamina C consumida foi de: "
+		<< qntd_total_c << std::endl;
+	return oss.str();
+}
+
+float AVL::QntdVitaminasInternal (std::string nomeAlimento, int vit)
+
+{
+	// valor será um ponteiro para o início da lista
+	// que guarda os dados de cada alimento
+	auto valor = Search(nomeAlimento)->GetAlimento().GetNutrientes().begin();
+	
+	// incrementa o ponteiro para avançá-lo pela lista
+
+	std::advance(valor, 9);
+	return * valor;
+}
+
+	std::advance(valor, vit);
+	return * valor;
+}
+
+std::string AVL::Qnt_Calories(std::list<std::string> consumidos){
+	std::list<std::string>::iterator it;std::ostringstream oss;
+	float qnt_total = 0.0;
+	
+	for  (it = consumidos.begin(); it != consumidos.end(); it++){
+		qnt_total += Qnt_CaloriesInternal(* it);
+	}
+	oss << "Quantidade de calorias cosumidos é de:" << qnt_total << std::endl;
+
+	return oss.str();
+
+}
+
+float AVL::Qnt_CaloriesInternal(std::string nomeAlimento){
+	auto valor = Search(nomeAlimento)->GetAlimento().GetNutrientes().begin();
+    std::advance(valor, 1);
+    return * valor;
+}
+
+
