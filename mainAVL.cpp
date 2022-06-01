@@ -223,6 +223,14 @@ void SinteseNutri(AVL* avl){
 	std::cout << avl->Sintese(consumidos) << std::endl;
 }
 
+void ValoresNutri(AVL *avl)
+{
+	std::string nomeAlimento;
+	std::cout << "Search food name: ";
+	std::cin >> nomeAlimento;
+	std::cout << avl->ValoresNutri(nomeAlimento);
+}
+
 // Implementação das funções -----------------------------
 
 int main()
@@ -255,14 +263,33 @@ int main()
 				TraverseInOrder(avl);
 				break;
 
+			case 2:
+				ValoresNutri(avl);
+				break;
+
+			case 3:
+				op3(avl);
+				break;
+
+			case 4:
+				op4(avl);
+				break;
+
+			case 5:
+				op5(avl);
+				break;
+
+			case 6:
+				op6(avl);
+				break;
 
 			case 7:
 				SinteseNutri(avl);
 				break;
 
-			// case 2: ValoresNutri(); break;
+			case 8:
+				break;
 
-			// case 3: Qnt_Calories(avl); break;
 
 		}
 		std::cout << '\n';
@@ -272,5 +299,3 @@ int main()
 
 	delete avl;
 }
-
-//comentario aqui

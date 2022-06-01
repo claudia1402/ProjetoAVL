@@ -38,8 +38,6 @@ public:
 	NodeAVL* Insert(Alimento Alimento);
 	void Remove(std::string nomeAlimento);
 
-	std::string percorre (int quant);
-
 	std::string Sintese(std::list<std::string> consumidos);
 
 
@@ -54,7 +52,7 @@ public:
 
 	std::string Qnt_Calories(std::list<std::string> consumidos);
 
-	
+	std::string ValoresNutri(std::string nomeAlimento);
 
 
 
@@ -95,7 +93,6 @@ private:
 	void SinteseInternal(float totais[], std::string nomeAlimento);
 
 
-
 	void OutrasInfosInternal (std::string nomeAlimento, float qnts[]);
 
 
@@ -103,7 +100,7 @@ private:
 
 	float QntdVitaminasInternal (std::string nomeAlimento, int vit);
 
-
+	float ValoresNutriInternal(std::string nomeAlimento, int pos);
 };
 
 #endif
