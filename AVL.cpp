@@ -535,7 +535,7 @@ void AVL::SinteseInternal(float qntds[], std::string nomeAlimento)
 	{
 		switch (i)
 		{
-		case 0:
+			case 0:
 				qntds[0] += Qnt_CaloriesInternal(nomeAlimento);
 				break;
 			case 8:
